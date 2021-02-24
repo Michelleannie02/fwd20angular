@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
-import { CatsService } from './cats.service';
-import { DogsService } from './dogs.service';
 import { StarWarsService } from './star-wars.service';
-
-interface Planets {
-  name: string;
-}
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,19 +9,22 @@ interface Planets {
 })
 export class AppComponent {
   title = 'angular-service';
-  planets: Planets[] = [];
+  planets: Observable<any>;
 
   constructor(
-    private catsService: CatsService,
-    private dogsService: DogsService,
     private starWarsService: StarWarsService
     ) {
     
   }
 
+  ngOnInit() {
+    this.planets = this.starWarsService.getPlanets();
+  }
+/*
   handleClick = () => {
     this.starWarsService.getPlanets().subscribe(
       data => {this.planets = data.results}
     );
-  }
+  } */
+
 }
